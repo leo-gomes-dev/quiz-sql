@@ -1,0 +1,26 @@
+{
+  "name": "quiz-sql",
+  "version": "1.0.0",
+  "description": "Este projeto é um **Quiz/Simulado Interativo** desenvolvido com foco em segurança da informação, abordando conceitos teóricos e práticos sobre a vulnerabilidade de **SQL Injection (Injeção de SQL)**.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leo-gomes-dev/quiz-sql.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/leo-gomes-dev/quiz-sql/issues"
+  },
+  "homepage": "https://github.com/leo-gomes-dev/quiz-sql#readme",
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  }
+}

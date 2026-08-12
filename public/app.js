@@ -7,7 +7,7 @@ const respostasSalvas = {}; // Guarda as respostas do aluno ex: {1: 'a', 2: 'c'}
 async function carregarPerguntas() {
     try {
         const resposta = await fetch('/data/perguntas.json');
-        perguntas = await answer = await resposta.json();
+        perguntas = await resposta.json(); // Código corrigido e limpo aqui
         renderizarPagina();
     } catch (erro) {
         console.error('Erro ao carregar o banco de dados de questões:', erro);

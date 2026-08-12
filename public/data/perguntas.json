@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "pergunta": "Qual é o mecanismo principal que causa a vulnerabilidade de SQL Injection em uma aplicação?",
+    "alternativas": {
+      "a": "A) Falha na criptografia das senhas gravadas na tabela do banco de dados.",
+      "b": "B) Confundir dados digitados pelo usuário com instruções de código devido à concatenação de strings.",
+      "c": "C) Falta de um certificado SSL/HTTPS no servidor de hospedagem da aplicação.",
+      "d": "D) Excesso de conexões abertas simultaneamente no banco SQLite em memória."
+    },
+    "correta": "b",
+    "explicacao": "O problema acontece quando o código apenas 'cola' o texto do usuário no meio da query SQL. O banco de dados não sabe onde termina o dado e onde começa o comando, permitindo que as aspas simples (') alterem a estrutura da consulta."
+  },
+  {
+    "id": 2,
+    "pergunta": "O que o caractere de comentário (como '--' no SQLite) permite que um invasor faça ao injetar código?",
+    "alternativas": {
+      "a": "A) Deletar automaticamente todos os arquivos da pasta public do servidor.",
+      "b": "B) Alterar o visual do CSS da página para simular um falso login.",
+      "c": "C) Anular o restante das validações da query original, como a checagem da senha.",
+      "d": "D) Forçar o uso obrigatório de Prepared Statements na próxima execução."
+    },
+    "correta": "c",
+    "explicacao": "Ao injetar '--' logo após o nome do usuário (ex: admin' --), tudo o que vier depois na linha do código SQL original (como a verificação AND senha = ?) vira um mero comentário e é ignorado pelo banco."
+  },
+  {
+    "id": 3,
+    "pergunta": "Por que o uso de 'Prepared Statements' (com interrogações '?') resolve essa falha de segurança?",
+    "alternativas": {
+      "a": "A) Porque ele tranca a estrutura do comando primeiro e trata qualquer dado enviado depois estritamente como texto literal.",
+      "b": "B) Porque ele bloqueia o uso de qualquer caractere especial no teclado do usuário.",
+      "c": "C) Porque ele roda uma rotina de antivírus direto no arquivo físico do SQLite.",
+      "d": "D) Porque ele criptografa a query em MD5 antes de mandar para o banco de dados."
+    },
+    "correta": "a",
+    "explicacao": "Com comandos parametrizados (?), o formato da busca já está pré-definido pelo banco. Se o invasor digitar comandos SQL, o banco vai apenas procurar por um registro que contenha literalmente aquele texto."
+  },
+  {
+    "id": 4,
+    "pergunta": "Qual das seguintes alternativas representa um exemplo de entrada clássica para testar SQL Injection em campos de login?",
+    "alternativas": {
+      "a": "A) admin' OR '1'='1",
+      "b": "B) <script>alert(1)</script>",
+      "c": "C) ../../../etc/passwd",
+      "d": "D) {{ 7*7 }}"
+    },
+    "correta": "a",
+    "explicacao": "A entrada admin' OR '1'='1 aproveita a falta de tratamento das aspas para injetar uma condição lógica que sempre resulta em verdadeiro, forçando o banco a retornar um registro válido."
+  },
+  {
+    "id": 5,
+    "pergunta": "O que acontece se uma injeção de SQL for feita usando o comando 'UNION'?",
+    "alternativas": {
+      "a": "A) O banco de dados junta as tabelas e pode expor dados confidenciais de outras tabelas para o invasor.",
+      "b": "B) O servidor web é reiniciado imediatamente derrubando a aplicação.",
+      "c": "C) Os dados digitados são automaticamente convertidos para arquivos binários criptografados.",
+      "d": "D) O navegador do cliente trava devido ao excesso de requisições paralelas em background."
+    },
+    "correta": "a",
+    "explicacao": "O operador UNION do SQL combina o resultado da consulta original com uma nova consulta criada pelo atacante. Isso permite roubar dados de cartões, e-mails ou senhas de outras tabelas."
+  },
+  {
+    "id": 6,
+    "pergunta": "Qual é o principal risco de usar a função padrão 'eval()' ou concatenações brutas em consultas dinâmicas de banco de dados?",
+    "alternativas": {
+      "a": "A) Perda de performance de rede devido ao tamanho dos pacotes trafegados.",
+      "b": "B) Injeção de código arbitrário e execução de comandos maliciosos diretamente no motor do banco.",
+      "c": "C) Formatação incorreta das datas registradas no fuso horário do servidor.",
+      "d": "D) Desconexão automática de todos os cookies ativos dos usuários logados."
+    },
+    "correta": "b",
+    "explicacao": "A execução dinâmica sem parametrização dá liberdade total para a string de entrada ser interpretada pelo interpretador SQL como ordem de controle de fluxo, gerando riscos críticos."
+  },
+  {
+    "id": 7,
+    "pergunta": "Em sistemas corporativos, além do código seguro, qual princípio de segurança ajuda a mitigar o impacto de um SQL Injection no banco de dados?",
+    "alternativas": {
+      "a": "A) Princípio do Menor Privilégio (dar ao usuário da aplicação apenas permissões de leitura/escrita necessárias, sem privilégios de administrador).",
+      "b": "B) Princípio da obscuridade total do código-fonte público.",
+      "c": "C) Alterar o nome das tabelas principais a cada 24 horas automaticamente.",
+      "d": "D) Bloquear o acesso ao site para qualquer usuário que utilize sistemas Linux."
+    },
+    "correta": "a",
+    "explicacao": "Se a conta usada pelo aplicativo não tiver permissões administrativas (como root ou sa), o invasor não conseguirá rodar comandos destrutivos como derrubar tabelas inteiras (DROP TABLE) ou ler arquivos internos do sistema operacional."
+  },
+  {
+    "id": 8,
+    "pergunta": "O termo 'Blind SQL Injection' (Injeção de SQL Cega) refere-se a qual cenário?",
+    "alternativas": {
+      "a": "A) Quando o ataque é feito com monitor desligado pelo desenvolvedor.",
+      "b": "B) Quando a aplicação não exibe erros de banco na tela, forçando o invasor a deduzir os dados através de respostas lógicas (Verdadeiro/Falso) ou tempo de resposta do servidor.",
+      "c": "C) Quando a falha corrompe os arquivos visuais de folha de estilo da aplicação.",
+      "d": "D) Quando o banco de dados desativa o log de erros permanentemente por falta de espaço em disco."
+    },
+    "correta": "b",
+    "explicacao": "Na injeção 'cega', o atacante não vê os dados vazando diretamente na página. Ele faz perguntas ao banco (ex: a primeira letra da senha do admin é 'A'?) e analisa se a página carregou normalmente ou demorou mais tempo para responder."
+  },
+  {
+    "id": 9,
+    "pergunta": "Qual função de bibliotecas (ORMs) como Sequelize ou Mongoose ajuda a evitar SQL Injection por padrão?",
+    "alternativas": {
+      "a": "A) Elas usam mapeamento de objetos e aplicam parametrização automática em todas as consultas geradas.",
+      "b": "B) Elas bloqueiam o acesso a qualquer requisição vinda por formulários HTML puros.",
+      "c": "C) Elas convertem todo o banco de dados relacional para arquivos TXT planos em tempo de execução.",
+      "d": "D) Elas exigem autenticação por biometria facial para validar a query do sistema."
+    },
+    "correta": "a",
+    "explicacao": "Os ORMs modernos isolam o desenvolvedor da criação manual de strings SQL complexas. Eles tratam os dados passados em métodos de busca nativamente como parâmetros limpos e protegidos."
+  },
+  {
+    "id": 10,
+    "pergunta": "Se um atacante injetar o texto 'admin' ; DROP TABLE usuarios; --' em um sistema vulnerável, o que ele tentará fazer?",
+    "alternativas": {
+      "a": "A) Alterar a senha do usuário administrador para o texto em maiúsculo.",
+      "b": "B) Excluir completamente a tabela de usuários do banco de dados, destruindo os registros existentes.",
+      "c": "C) Exportar os dados de usuários em formato de planilha Excel compactada.",
+      "d": "D) Criar uma ramificação secundária clonando a base atual para testes locais."
+    },
+    "correta": "b",
+    "explicacao": "O caractere de ponto e vírgula (;) serve para encerrar a instrução atual e iniciar um comando totalmente novo. O comando DROP TABLE instrui o banco a remover a tabela indicada imediatamente."
+  }
+]

@@ -1,13 +1,13 @@
 let perguntas = [];
 let paginaAtual = 1;
 const itensPorPagina = 5;
-const respostasSalvas = {}; // Guarda as respostas do aluno ex: {1: 'a', 2: 'c'}
+const respostaSalvas = {}; // Guarda as respostas do aluno ex: {1: 'a', 2: 'c'}
 
 // 1. Carregar as perguntas do arquivo JSON isolado
 async function carregarPerguntas() {
     try {
         const resposta = await fetch('/data/perguntas.json');
-        perguntas = await answer = await resposta.json();
+        perguntas = await resposta.json();
         renderizarPagina();
     } catch (erro) {
         console.error('Erro ao carregar o banco de dados de questões:', erro);
@@ -31,7 +31,7 @@ function renderizarPagina() {
         card.setAttribute('data-correta', q.correta);
 
         // Verifica se o aluno já tinha marcado alguma alternativa nesta questão antes
-        const checado = (alt) => respuestasSalvas[q.id] === alt ? 'checked' : '';
+        const checado = (alt) => respostaSalvas[q.id] === alt ? 'checked' : '';
 
         card.innerHTML = `
             <span class="tag-questao">Questão ${String(q.id).padStart(2, '0')}</span>
@@ -51,7 +51,7 @@ function renderizarPagina() {
         // Ouvinte para salvar a marcação caso o aluno mude de página
         card.querySelectorAll('input[type="radio"]').forEach((radio) => {
             radio.addEventListener('change', (e) => {
-                respuestasSalvas[q.id] = e.target.value;
+                respostaSalvas[q.id] = e.target.value;
             });
         });
 
@@ -101,7 +101,7 @@ document.getElementById('btnVerificar').addEventListener('click', () => {
 
     // Valida se o mapa de respostas salvas possui todas as chaves preenchidas
     perguntas.forEach((q) => {
-        if (!respuestasSalvas[q.id]) {
+        if (!respostaSalvas[q.id]) {
             todasRespondidas = false;
         }
     });
@@ -123,7 +123,7 @@ document.getElementById('btnVerificar').addEventListener('click', () => {
         const card = document.createElement('section');
         card.className = 'card-pergunta';
         
-        const opcaoMarcada = respuestasSalvas[q.id];
+        const opcaoMarcada = respostaSalvas[q.id];
         const eCorreta = opcaoMarcada === q.correta;
 
         if (eCorreta) totalAcertos++;

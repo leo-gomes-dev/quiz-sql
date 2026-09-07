@@ -1,78 +1,146 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simulado Acadêmico: Segurança em SQL</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <header>
-        <h1>⚡ Simulado de Fixação: SQL Injection</h1>
-        <p>Desenvolvido para revisão em grupo — Teste seus conhecimentos antes da prova!</p>
+      <h1>Simulado de Fixação: SQL Injection</h1>
+      <p>
+        Desenvolvido para revisão em grupo — Teste seus conhecimentos antes da
+        prova!
+      </p>
     </header>
 
     <main class="quiz-container">
-        <!-- Pergunta 1 -->
-        <section class="card-pergunta" data-correta="b">
-            <span class="tag-questao">Questão 01</span>
-            <h2>Qual é o mecanismo principal que causa a vulnerabilidade de SQL Injection em uma aplicação?</h2>
-            
-            <div class="alternativas">
-                <label><input type="radio" name="q1" value="a"> A) Falha na criptografia das senhas gravadas na tabela do banco de dados.</label>
-                <label><input type="radio" name="q1" value="b"> B) Confundir dados digitados pelo usuário com instruções de código devido à concatenação de strings.</label>
-                <label><input type="radio" name="q1" value="c"> C) Falta de um certificado SSL/HTTPS no servidor de hospedagem da aplicação.</label>
-                <label><input type="radio" name="q1" value="d"> D) Excesso de conexões abertas simultaneamente no banco SQLite em memória.</label>
-            </div>
+      <!-- Pergunta 1 -->
+      <section class="card-pergunta" data-correta="b">
+        <span class="tag-questao">Questão 01</span>
+        <h2>
+          Qual é o mecanismo principal que causa a vulnerabilidade de SQL
+          Injection em uma aplicação?
+        </h2>
 
-            <div class="gabarito-bloco hidden">
-                <p class="status-resposta"></p>
-                <p class="explicacao"><strong>Explicação:</strong> O problema acontece quando o código apenas "cola" o texto do usuário no meio da query SQL. O banco de dados não sabe onde termina o dado e onde começa o comando, permitindo que as aspas simples `'` alterem a estrutura da consulta.</p>
-            </div>
-        </section>
+        <div class="alternativas">
+          <label
+            ><input type="radio" name="q1" value="a" /> A) Falha na criptografia
+            das senhas gravadas na tabela do banco de dados.</label
+          >
+          <label
+            ><input type="radio" name="q1" value="b" /> B) Confundir dados
+            digitados pelo usuário com instruções de código devido à
+            concatenação de strings.</label
+          >
+          <label
+            ><input type="radio" name="q1" value="c" /> C) Falta de um
+            certificado SSL/HTTPS no servidor de hospedagem da aplicação.</label
+          >
+          <label
+            ><input type="radio" name="q1" value="d" /> D) Excesso de conexões
+            abertas simultaneamente no banco SQLite em memória.</label
+          >
+        </div>
 
-        <!-- Pergunta 2 -->
-        <section class="card-pergunta" data-correta="c">
-            <span class="tag-questao">Questão 02</span>
-            <h2>O que o caractere de comentário (como `--` no SQLite) permite que um invasor faça ao injetar código?</h2>
-            
-            <div class="alternativas">
-                <label><input type="radio" name="q2" value="a"> A) Deletar automaticamente todos os arquivos da pasta public do servidor.</label>
-                <label><input type="radio" name="q2" value="b"> B) Alterar o visual do CSS da página para simular um falso login.</label>
-                <label><input type="radio" name="q2" value="c"> C) Anular o restante das validações da query original, como a checagem da senha.</label>
-                <label><input type="radio" name="q2" value="d"> D) Forçar o uso obrigatório de Prepared Statements na próxima execução.</label>
-            </div>
+        <div class="gabarito-bloco hidden">
+          <p class="status-resposta"></p>
+          <p class="explicacao">
+            <strong>Explicação:</strong> O problema acontece quando o código
+            apenas "cola" o texto do usuário no meio da query SQL. O banco de
+            dados não sabe onde termina o dado e onde começa o comando,
+            permitindo que as aspas simples `'` alterem a estrutura da consulta.
+          </p>
+        </div>
+      </section>
 
-            <div class="gabarito-bloco hidden">
-                <p class="status-resposta"></p>
-                <p class="explicacao"><strong>Explicação:</strong> Ao injetar `--` logo após o nome do usuário (ex: `admin' --`), tudo o que vier depois na linha do código SQL original (como a verificação `AND senha = ?`) vira um mero comentário e é ignorado pelo banco, aprovando o login sem senha.</p>
-            </div>
-        </section>
+      <!-- Pergunta 2 -->
+      <section class="card-pergunta" data-correta="c">
+        <span class="tag-questao">Questão 02</span>
+        <h2>
+          O que o caractere de comentário (como `--` no SQLite) permite que um
+          invasor faça ao injetar código?
+        </h2>
 
-        <!-- Pergunta 3 -->
-        <section class="card-pergunta" data-correta="a">
-            <span class="tag-questao">Questão 03</span>
-            <h2>Por que o uso de "Prepared Statements" (com interrogações `?`) resolve essa falha de segurança?</h2>
-            
-            <div class="alternativas">
-                <label><input type="radio" name="q3" value="a"> A) Porque ele tranca a estrutura do comando primeiro e trata qualquer dado enviado depois estritamente como texto literal.</label>
-                <label><input type="radio" name="q3" value="b"> B) Porque ele bloqueia o uso de qualquer caractere especial no teclado do usuário.</label>
-                <label><input type="radio" name="q3" value="c"> C) Porque ele roda uma rotina de antivírus direto no arquivo físico do SQLite.</label>
-                <label><input type="pure" style="display:none"></label> <!-- Evita quebras de layout -->
-                <label><input type="radio" name="q3" value="d"> D) Porque ele criptografa a query em MD5 antes de mandar para o banco de dados.</label>
-            </div>
+        <div class="alternativas">
+          <label
+            ><input type="radio" name="q2" value="a" /> A) Deletar
+            automaticamente todos os arquivos da pasta public do
+            servidor.</label
+          >
+          <label
+            ><input type="radio" name="q2" value="b" /> B) Alterar o visual do
+            CSS da página para simular um falso login.</label
+          >
+          <label
+            ><input type="radio" name="q2" value="c" /> C) Anular o restante das
+            validações da query original, como a checagem da senha.</label
+          >
+          <label
+            ><input type="radio" name="q2" value="d" /> D) Forçar o uso
+            obrigatório de Prepared Statements na próxima execução.</label
+          >
+        </div>
 
-            <div class="gabarito-bloco hidden">
-                <p class="status-resposta"></p>
-                <p class="explicacao"><strong>Explicação:</strong> Com comandos parametrizados (`?`), o formato da busca já está pré-definido pelo banco. Se o invasor digitar comandos SQL nas caixas de texto, o banco vai apenas procurar por um registro que contenha literalmente aquele texto esquisito escrito na tabela.</p>
-            </div>
-        </section>
+        <div class="gabarito-bloco hidden">
+          <p class="status-resposta"></p>
+          <p class="explicacao">
+            <strong>Explicação:</strong> Ao injetar `--` logo após o nome do
+            usuário (ex: `admin' --`), tudo o que vier depois na linha do código
+            SQL original (como a verificação `AND senha = ?`) vira um mero
+            comentário e é ignorado pelo banco, aprovando o login sem senha.
+          </p>
+        </div>
+      </section>
 
-        <button id="btnVerificar" class="btn-principal">Corrigir Simulado</button>
-        <div id="resultadoFinal" class="alerta hidden"></div>
+      <!-- Pergunta 3 -->
+      <section class="card-pergunta" data-correta="a">
+        <span class="tag-questao">Questão 03</span>
+        <h2>
+          Por que o uso de "Prepared Statements" (com interrogações `?`) resolve
+          essa falha de segurança?
+        </h2>
+
+        <div class="alternativas">
+          <label
+            ><input type="radio" name="q3" value="a" /> A) Porque ele tranca a
+            estrutura do comando primeiro e trata qualquer dado enviado depois
+            estritamente como texto literal.</label
+          >
+          <label
+            ><input type="radio" name="q3" value="b" /> B) Porque ele bloqueia o
+            uso de qualquer caractere especial no teclado do usuário.</label
+          >
+          <label
+            ><input type="radio" name="q3" value="c" /> C) Porque ele roda uma
+            rotina de antivírus direto no arquivo físico do SQLite.</label
+          >
+          <label><input type="pure" style="display: none" /></label>
+          <!-- Evita quebras de layout -->
+          <label
+            ><input type="radio" name="q3" value="d" /> D) Porque ele
+            criptografa a query em MD5 antes de mandar para o banco de
+            dados.</label
+          >
+        </div>
+
+        <div class="gabarito-bloco hidden">
+          <p class="status-resposta"></p>
+          <p class="explicacao">
+            <strong>Explicação:</strong> Com comandos parametrizados (`?`), o
+            formato da busca já está pré-definido pelo banco. Se o invasor
+            digitar comandos SQL nas caixas de texto, o banco vai apenas
+            procurar por um registro que contenha literalmente aquele texto
+            esquisito escrito na tabela.
+          </p>
+        </div>
+      </section>
+
+      <button id="btnVerificar" class="btn-principal">Corrigir Simulado</button>
+      <div id="resultadoFinal" class="alerta hidden"></div>
     </main>
 
     <script src="app.js"></script>
-</body>
+  </body>
 </html>
